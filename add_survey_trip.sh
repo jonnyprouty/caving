@@ -116,11 +116,11 @@ window_display_get ()
 
 therion_file_th2_header_print ()
 {
-local file4identify=$( echo "$2" | sed 's:^../::' )
-# this hacky eval nastiness is used to get the dimensions of the current sketch
-eval $( identify -verbose "$file4identify" | sed -n 's/^  Page geometry: \([0-9]\+\)x\([0-9]\+\).*$/local sketch_w=\1; local sketch_h=\2;/p' )
-sketch_w=$(( $sketch_w+128 ))
-sketch_h=$(( $sketch_h+128 ))
+    local file4identify=$( echo "$2" | sed 's:^../::' )
+	# this hacky eval nastiness is used to get the dimensions of the current sketch
+	eval $( identify -verbose "$file4identify" | sed -n 's/^  Page geometry: \([0-9]\+\)x\([0-9]\+\).*$/local sketch_w=\1; local sketch_h=\2;/p' )
+	sketch_w=$(( $sketch_w+128 ))
+	sketch_h=$(( $sketch_h+128 ))
 cat <<EOF> "$1"
 encoding  utf-8
 ##XTHERION## xth_me_area_adjust -128 -$sketch_h $sketch_w 128
@@ -136,7 +136,7 @@ EOF
 # $4 path fo sketch image file
 therion_file_scrap_print ()
 {
-cat <<EOF>> "$2"
+    cat <<EOF>> "$2"
 scrap $3 -projection $1 -scale [0 0 400 0 0.0 0.0 20 0.0 ft] -sketch [$4] 0 -2200
 
 endscrap
